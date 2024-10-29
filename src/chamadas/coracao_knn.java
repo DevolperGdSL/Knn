@@ -19,12 +19,6 @@ public class coracao_knn {
             tabela[i][0] = vizinhos[i][0];
             tabela[i][1] = rotulos_objetos[i][0];  
         }
-        for (int i = 0; i < tabela.length; i++) {
-            for (int j = 0; j < tabela[0].length; j++) {
-                System.out.print(tabela[i][j] + " ");
-            }
-            System.out.println("");
-        }
         return tabela;
     }
 }

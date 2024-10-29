@@ -18,28 +18,32 @@
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KNN" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="611.06640625" VBox.vgrow="ALWAYS">
                <font>
-                  <Font size="18.0" />
+                  <Font size="40.0" />
                </font>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Insira a quantidade de vizinhos:" textAlignment="CENTER" wrappingWidth="594.13671875" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Insira a quantidade de vizinhos:" textAlignment="CENTER" wrappingWidth="594.13671875" >
+               <font>
+                  <Font size="16.0"/>
+               </font>
+            </Text>
             <TextField id="kInput" fx:id="kInput" prefHeight="25.0" prefWidth="580.0" />
-            <Button id="addButton" fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Button" />
+            <Button id="addButton" fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Start" />
             <HBox alignment="CENTER">
                <children>
                   <BubbleChart fx:id="bubbleChart" HBox.hgrow="ALWAYS">
                     <xAxis>
-                      <NumberAxis prefWidth="514.0" side="BOTTOM" upperBound="1.0" />
+                      <NumberAxis prefWidth="580.0" side="BOTTOM" upperBound="1.0" />
                     </xAxis>
                     <yAxis>
                       <NumberAxis side="LEFT" upperBound="1.0" />
                     </yAxis>
                   </BubbleChart>
-                  <TableView HBox.hgrow="ALWAYS">
+                  <TableView fx:id="myTableView" prefWidth="348.0" HBox.hgrow="ALWAYS">
                     <columns>
-                      <TableColumn prefWidth="62.0" text="Objeto" />
-                      <TableColumn prefWidth="60.0" text="R_KNN" />
-                        <TableColumn minWidth="0.0" prefWidth="61.0" text="R_Real" />
-                        <TableColumn prefWidth="165.0" text="Acerto/erro" />
+                      <TableColumn fx:id="Objeto" prefWidth="62.0" text="Objeto" />
+                      <TableColumn fx:id="R_KNN" prefWidth="60.0" text="R_KNN" />
+                      <TableColumn fx:id="R_Real" minWidth="0.0" prefWidth="61.0" text="R_Real" />
+                      <TableColumn fx:id="Acerto" prefWidth="165.0" text="Acerto/erro" />
                     </columns>
                   </TableView>
                </children>

@@ -9,14 +9,14 @@
             "request": "launch",
             "name": "Launch JavaFX App",
             "mainClass": "App",
-            "vmArgs": "--module-path C:\\OpenJdk\\javafx-sdk-23.0.1\\lib --add-modules javafx.controls,javafx.fxml"
-        },       
+            "vmArgs": "--module-path \"C:\\Program Files\\Java\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
+        },  
         {
             "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "KNN_444044b0"
+            "projectName": "qualquer_6240882c"
         }
     ]
 }

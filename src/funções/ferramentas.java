@@ -74,7 +74,6 @@ public class ferramentas {
 
     public double[][] ident_vizinho(double[][] matriz_pertinencia, double[][] rotulos_base, int k){
         int num_obj_base = matriz_pertinencia[0].length;
-        System.out.println(num_obj_base);
         double[][] matriz_rotulos_obj_estimados = new double[num_obj_base][1];
         double[] rotulos_vizinhos = new double[k];
         List<double[]> result = findNMinValuesPerColumn(matriz_pertinencia, k);

@@ -7,8 +7,15 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.util.converter.IntegerStringConverter;
+import utilidade.Leitor_de_txt;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import chamadas.*;
 
 public class Controller {
@@ -19,23 +26,100 @@ public class Controller {
     private Button addButton; // Botão para adicionar dados
     @FXML
     private TextField kInput; // Campo de texto para entrada do valor X
+    @FXML
+    private TableView<MyData> myTableView;
+    @FXML
+    private TableColumn<MyData, String> Objeto;
+    @FXML
+    private TableColumn<MyData, Double> R_KNN;
+    @FXML
+    private TableColumn<MyData, Double> R_Real;
+    @FXML
+    private TableColumn<MyData, String> Acerto;
 
-    // Lista para armazenar os dados das bolas
-    private ObservableList<XYChart.Data<Number, Number>> bubbleData;
+
 
     @FXML
     public void initialize() {
-        // Inicializa a lista de dados do gráfico
-        bubbleData = FXCollections.observableArrayList();
-        // Configura a série de dados no gráfico
-        XYChart.Series<Number, Number> series = new XYChart.Series<>(bubbleData);
-        bubbleChart.getData().add(series);
+        Leitor_de_txt ler = new Leitor_de_txt();
+        double[][] matriz_base = ler.lerMatrizDeArquivo("src//banco_de_dados//Base_sintética.txt");
+        double[][] rotulos_base = ler.lerMatrizDeArquivo("src\\banco_de_dados\\rotulos\\Base_sintetica_rotulos.txt");
+        double[][]matriz_objetos = ler.lerMatrizDeArquivo("src\\banco_de_dados\\Objetos.txt");
+         // Configura a série de dados para objetos-1
+         ObservableList<XYChart.Data<Number, Number>> bubbleData1 = FXCollections.observableArrayList();
+         XYChart.Series<Number, Number> series = new XYChart.Series<>(bubbleData1);
+         series.setName("objetos-1");
+ 
+         for (int i = 0; i < matriz_base.length; i++) {
+             if (rotulos_base[i][0] == 1) {
+                 bubbleData1.add(new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035));
+             }
+         }
+ 
+         // Configura a série de dados para objetos-2
+         ObservableList<XYChart.Data<Number, Number>> bubbleData2 = FXCollections.observableArrayList();
+         XYChart.Series<Number, Number> series2 = new XYChart.Series<>(bubbleData2);
+         series2.setName("objetos-2");
+ 
+         for (int i = 0; i < matriz_base.length; i++) {
+             if (rotulos_base[i][0] == 2) {
+                 bubbleData2.add(new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035));
+             }
+         }
+         
+         ObservableList<XYChart.Data<Number, Number>> bubbleData3 = FXCollections.observableArrayList();
+         XYChart.Series<Number, Number> series3 = new XYChart.Series<>(bubbleData3);
+         series3.setName("objetos-3");
+         for (int i = 0; i < matriz_objetos.length; i++) {
+             XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(matriz_objetos[i][0], matriz_objetos[i][1], 0.0035);
+             bubbleData3.add(dataPoint);
+         
+             // Listener para estilizar o nó do ponto quando ele é criado
+             dataPoint.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                 if (newNode != null) {
+                     newNode.setStyle("-fx-background-color: #000000, black;"); // Verde para "objetos-3"
+                 }
+             });
+         }
+         // Adiciona as séries ao gráfico
+         bubbleChart.getData().add(series);
+         bubbleChart.getData().add(series2);
+         bubbleChart.getData().add(series3);
     }
     
     @FXML
-    private void handleAddButtonAction(){
+    private void handleAddButtonAction() {
+        Leitor_de_txt ler = new Leitor_de_txt();
+        double[][]rotulos_objetos = ler.lerMatrizDeArquivo("src\\banco_de_dados\\rotulos\\Objetos_rotulos.txt");
         int k = Integer.parseInt(kInput.getText());
         coracao_knn chama = new coracao_knn();
         double[][] tabela = chama.chamada(k);
+
+       
+        Objeto.setCellValueFactory(data -> data.getValue().name);
+        Objeto.setResizable(false);
+        R_KNN.setCellValueFactory(data -> data.getValue().rotulos_estimados.asObject());
+        R_KNN.setResizable(false);
+        R_Real.setCellValueFactory(data -> data.getValue().rotulos_reais.asObject());
+        R_Real.setResizable(false);
+        Acerto.setCellValueFactory(data -> data.getValue().acerto);
+        Acerto.setResizable(false);
+
+        List<MyData> dados = carregarDadosDinamicamente(tabela, rotulos_objetos);
+        myTableView.setItems(FXCollections.observableArrayList(dados));
+    }
+    private List<MyData> carregarDadosDinamicamente(double[][]tabela, double[][]rotulos_objetos) {
+        List<MyData> dados = new ArrayList<>();
+        String acertiva;
+        for (int i = 0; i < tabela.length; i++) {
+            if (tabela[i][0]==rotulos_objetos[i][0]) {
+                acertiva = "Acerto";
+            }else{
+                acertiva = "Erro";
+            }
+            dados.add(new MyData("Objeto - " + i, tabela[i][0], rotulos_objetos[i][0], acertiva));
+        }
+        // Adicione quantos dados forem necessários
+        return dados;
     }
 }
