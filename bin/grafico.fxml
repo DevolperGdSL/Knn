@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.BubbleChart?>
 <?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Button?>
@@ -7,6 +8,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -16,18 +18,30 @@
    <children>
       <VBox alignment="CENTER" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KNN" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="611.06640625" VBox.vgrow="ALWAYS">
-               <font>
-                  <Font size="40.0" />
-               </font>
-            </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Insira a quantidade de vizinhos:" textAlignment="CENTER" wrappingWidth="594.13671875" >
-               <font>
-                  <Font size="16.0"/>
-               </font>
-            </Text>
-            <TextField id="kInput" fx:id="kInput" prefHeight="25.0" prefWidth="580.0" />
-            <Button id="addButton" fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" text="Start" />
+            <BorderPane prefHeight="200.0" prefWidth="200.0">
+               <center>
+                  <TextField id="kInput" fx:id="kInput" alignment="CENTER" prefHeight="25.0" prefWidth="522.0" BorderPane.alignment="CENTER">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </TextField>
+               </center>
+               <left>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Insira a quantidade de vizinhos:" textAlignment="CENTER" wrappingWidth="381.13671875" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
+               </left>
+               <top>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="KNN" textAlignment="CENTER" textOrigin="CENTER" wrappingWidth="90.06640625" BorderPane.alignment="CENTER">
+                     <font>
+                        <Font size="40.0" />
+                     </font>
+                  </Text>
+               </top>
+            </BorderPane>
+            <Button id="addButton" fx:id="addButton" mnemonicParsing="false" onAction="#handleAddButtonAction" prefHeight="25.0" prefWidth="86.0" text="Start" />
             <HBox alignment="CENTER">
                <children>
                   <BubbleChart fx:id="bubbleChart" HBox.hgrow="ALWAYS">

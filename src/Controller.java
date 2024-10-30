@@ -48,39 +48,53 @@ public class Controller {
          // Configura a série de dados para objetos-1
          ObservableList<XYChart.Data<Number, Number>> bubbleData1 = FXCollections.observableArrayList();
          XYChart.Series<Number, Number> series = new XYChart.Series<>(bubbleData1);
-         series.setName("objetos-1");
+         series.setName("Objetos da Base do tipo 1");
  
          for (int i = 0; i < matriz_base.length; i++) {
              if (rotulos_base[i][0] == 1) {
-                 bubbleData1.add(new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035));
+                XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035);
+                dataPoint.nodeProperty().addListener((obs, oldNode, newNode) ->{
+                    if (newNode != null) {
+                       newNode.setStyle("-fx-background-color: #FA8072;");
+                    }
+                       }
+                    );
+                bubbleData1.add(dataPoint);
              }
          }
  
          // Configura a série de dados para objetos-2
          ObservableList<XYChart.Data<Number, Number>> bubbleData2 = FXCollections.observableArrayList();
          XYChart.Series<Number, Number> series2 = new XYChart.Series<>(bubbleData2);
-         series2.setName("objetos-2");
+         series2.setName("Objetos da Base do tipo 2");
  
          for (int i = 0; i < matriz_base.length; i++) {
              if (rotulos_base[i][0] == 2) {
-                 bubbleData2.add(new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035));
+                 XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(matriz_base[i][0], matriz_base[i][1], 0.0035);
+                 dataPoint.nodeProperty().addListener((obs, oldNode, newNode) ->{
+                 if (newNode != null) {
+                    newNode.setStyle("-fx-background-color: #FFA500;");
+                 }
+                    }
+                 );
+                 bubbleData2.add(dataPoint);
              }
          }
          
          ObservableList<XYChart.Data<Number, Number>> bubbleData3 = FXCollections.observableArrayList();
          XYChart.Series<Number, Number> series3 = new XYChart.Series<>(bubbleData3);
-         series3.setName("objetos-3");
+         series3.setName("Objetos a serem classificados");
          for (int i = 0; i < matriz_objetos.length; i++) {
              XYChart.Data<Number, Number> dataPoint = new XYChart.Data<>(matriz_objetos[i][0], matriz_objetos[i][1], 0.0035);
+              // Define a cor do nó após ele ser criado
+                dataPoint.nodeProperty().addListener((obs, oldNode, newNode) -> {
+                if (newNode != null) {
+                    newNode.setStyle("-fx-background-color: #006400;"); // Cor preta
+                }
+            });
              bubbleData3.add(dataPoint);
-         
-             // Listener para estilizar o nó do ponto quando ele é criado
-             dataPoint.nodeProperty().addListener((obs, oldNode, newNode) -> {
-                 if (newNode != null) {
-                     newNode.setStyle("-fx-background-color: #000000, black;"); // Verde para "objetos-3"
-                 }
-             });
          }
+
          // Adiciona as séries ao gráfico
          bubbleChart.getData().add(series);
          bubbleChart.getData().add(series2);
@@ -107,6 +121,13 @@ public class Controller {
 
         List<MyData> dados = carregarDadosDinamicamente(tabela, rotulos_objetos);
         myTableView.setItems(FXCollections.observableArrayList(dados));
+        myTableView.setFixedCellSize(25); // Ajuste o valor conforme necessário
+        double alturaTabela = myTableView.getFixedCellSize() * myTableView.getItems().size() + 35; // 28 para compensar o cabeçalho
+        myTableView.setMinHeight(alturaTabela);
+        myTableView.setMaxHeight(alturaTabela);
+        double larguraTabela = Objeto.getPrefWidth() + R_KNN.getPrefWidth() + R_Real.getPrefWidth() + Acerto.getPrefWidth() + 5;
+        myTableView.setMinWidth(larguraTabela);
+        myTableView.setMaxWidth(larguraTabela);
     }
     private List<MyData> carregarDadosDinamicamente(double[][]tabela, double[][]rotulos_objetos) {
         List<MyData> dados = new ArrayList<>();
