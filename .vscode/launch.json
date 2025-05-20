@@ -9,14 +9,16 @@
             "request": "launch",
             "name": "Launch JavaFX App",
             "mainClass": "App",
-            "vmArgs": "--enable-preview --module-path \"C:\\Program Files\\Java\\javafx-sdk-23.0.1\\lib\" --add-modules javafx.controls,javafx.fxml"
+            "vmArgs": "--enable-preview --module-path /home/gabriel/javafx-sdk-21.0.7/lib --add-modules javafx.controls,javafx.fxml -Djava.library.path=/home/gabriel/javafx-sdk-21.0.7/lib -Dprism.order=sw -Dprism.verbose=true"
+
+
         },  
         {
             "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "App",
-            "projectName": "qualquer_6240882c",
+            "projectName": "Knn",
             "vmArgs": "--enable-preview"
         }
     ]
