@@ -112,6 +112,11 @@ Troque `CAMINHO_PARA_PASTA` pelo caminho da pasta pai do JavaFX:
 
 ---
 
+## 🐧 Compatibilidade
+⚠️ Este projeto foi desenvolvido e testado em sistemas Linux.
+* Os caminhos utilizados nos arquivos launch.json e settings.json estão no formato Unix (`/`).
+* Se estiver utilizando Windows, substitua as barras (`/`) por barras invertidas (`\\`) nos caminhos dos arquivos e nos .json.
+
 ## 📊 Resultado Esperado
 
 * A aplicação deve ler a base de dados e classificar os objetos.
